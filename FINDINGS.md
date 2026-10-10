@@ -1297,3 +1297,28 @@ on events that have not happened. `scripts/bench/oil_forward.py`, spec in `shado
 If it passes, Kalshi's oil ladders a day out are mispriced against a free futures feed, the first
 non-weather case of the §42 thesis. If it fails, §47's exception was noise and the benchmark's
 answer is uniform: free real-time prices are already in the book.
+
+## 49 · Pre-registered: does the oil effect hold on other commodities? (2026-10-10)
+
+Written and pushed before any price, quote or outcome of these series was fetched. Only their
+event counts had been seen.
+
+§47 found that a parameter-free lognormal on the front-month future beats Kalshi's WTI ladders a
+day before close, even against the market's most favourable in-quote prices. If that is a real
+property of thin commodity books, and not noise, it should hold on Kalshi's other daily commodity
+ladders: gold (KXGOLDD, `GC=F`), silver (KXSILVERD, `SI=F`), copper (KXCOPPERD, `HG=F`), Brent
+(KXBRENTD, `BZ=F`) and natural gas (KXNATGASD, `NG=F`). Each has about 110 settled events, all
+from March 2026 on.
+
+- **Model.** The §47 outside model, unchanged (`scripts/bench/evaluate.py`, sha256 `15d95b25…`,
+  the same code frozen for oil in §48). It has no fitted parameters, so every event is out of
+  sample.
+- **Data.** Every settled current-format event, `scripts/bench/fetch.py`; quotes 24 h, 6 h and
+  1 h before close.
+- **Primary.** 24 h, pooled over the five series: outside model minus the market at its most
+  favourable in-quote price, log loss per ladder. **PASS if the 95% date-block CI lower bound is
+  above zero.**
+- **Secondary, reported whatever the primary says.** Each series alone at 24 h; the pooled
+  comparison at 6 h and 1 h. The series-level results are exploratory: five tests, no correction.
+
+`scripts/bench/commodities.py`, output `results/bench/commodities.json`.

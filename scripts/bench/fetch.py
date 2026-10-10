@@ -31,7 +31,15 @@ SERIES = {
     # family, series: max events
     "weather": {"KXHIGHNY": 400, "KXHIGHCHI": 400, "KXLOWTNYC": 400, "KXRAIN": 400},
     "financial": {"KXINX": 400, "KXNASDAQ100": 400, "KXEURUSD": 400, "KXUSDJPY": 400},
-    "commodities": {"KXWTI": 400},
+    "commodities": {
+        "KXWTI": 400,
+        # §49, pre-registered: the other daily commodity ladders.
+        "KXGOLDD": 400,
+        "KXSILVERD": 400,
+        "KXCOPPERD": 400,
+        "KXBRENTD": 400,
+        "KXNATGASD": 400,
+    },
     "crypto": {"KXBTC": 400},
     "economics": {"KXCPI": 400, "KXJOBLESSCLAIMS": 400},  # KXFED: 6 current-format events, dropped
     "gas": {"KXAAAGASD": 400},
