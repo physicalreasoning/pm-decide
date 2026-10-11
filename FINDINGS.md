@@ -1322,3 +1322,37 @@ from March 2026 on.
   comparison at 6 h and 1 h. The series-level results are exploratory: five tests, no correction.
 
 `scripts/bench/commodities.py`, output `results/bench/commodities.json`.
+
+**Result (2026-10-11): PASS.** 24 h, pooled, outside model minus in-quote market:
+**+0.331 [+0.184, +0.474]**, 516 ladders. Secondary, as registered:
+
+| Series | 24 h | 6 h | 1 h |
+|---|---|---|---|
+| Gold | +0.09 [−0.08, +0.30] | −0.53 [−0.77, −0.31] | −3.56 [−4.30, −2.89] |
+| Silver | +0.14 [−0.01, +0.31] | +0.08 [−0.13, +0.31] | −0.96 [−1.25, −0.66] |
+| Copper | **+0.60 [+0.26, +0.96]** | +0.19 [−0.14, +0.53] | −0.77 [−1.25, −0.32] |
+| Brent | **+0.53 [+0.14, +0.97]** | −0.16 [−0.46, +0.15] | −1.19 [−1.75, −0.70] |
+| Natural gas | +0.29 [−0.05, +0.63] | +0.10 [−0.31, +0.53] | −0.95 [−1.52, −0.36] |
+| **Pooled** | **+0.33 [+0.18, +0.47]** | −0.07 [−0.21, +0.06] | −1.52 [−1.81, −1.23] |
+
+Checks made after the result, not registered:
+
+- **The 1 h losses are the outside model's fault.** Gold and silver settle on a spot price about
+  0.5% below the front-month future (median log ratio −0.56% and −0.42%), which is fatal an hour
+  out. Even with no basis (Brent, copper, gas within 0.03%), errors an hour out are fat-tailed:
+  the standardised error has SD 1.9 to 3.6, against 1.0 to 1.2 at 24 h. A lognormal is roughly
+  right a day out and badly overconfident an hour out. These flaws hurt the outside model, so they
+  do not explain the 24 h pass.
+- **The gain is in the tails.** The median ladder gains 0.000 and the 10%-trimmed mean is +0.004.
+  The pooled mean comes from a minority of ladders where the book a day out priced the outcome
+  near zero even at its ask, often after an overnight move. Dropping the 10 best ladders leaves
+  +0.21. Seven of eight months are positive.
+- **It is not money.** A taker who buys every ask the model values above ask plus Kalshi's fee,
+  and sells every bid it values below bid minus fee (six commodity series including WTI, 24 h,
+  one contract each), makes +$0.47 over 9,703 trades, about zero, and −$97 with one cent of
+  slippage. Copper (+$57) and WTI (+$32) are positive; the rest are negative.
+
+So the §47 effect is real and general across Kalshi's daily commodity ladders a day out: the
+books are stale enough that a free futures feed scores better. But, as on weather (§46), the
+better score sits where spread and fees absorb it. The oil sealed test (§48) still runs; it
+measures the score, not a trading edge.
