@@ -1345,8 +1345,8 @@ Checks made after the result, not registered:
   do not explain the 24 h pass.
 - **The gain is in the tails.** The median ladder gains 0.000 and the 10%-trimmed mean is +0.004.
   The pooled mean comes from a minority of ladders where the book a day out priced the outcome
-  near zero even at its ask, often after an overnight move. Dropping the 10 best ladders leaves
-  +0.21. Seven of eight months are positive.
+  near zero even at its ask. Dropping the 10 best ladders leaves +0.21. All eight months are
+  positive, August barely (+0.004).
 - **It is not money.** A taker who buys every ask the model values above ask plus Kalshi's fee,
   and sells every bid it values below bid minus fee (six commodity series including WTI, 24 h,
   one contract each), makes +$0.47 over 9,703 trades, about zero, and −$97 with one cent of
